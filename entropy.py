@@ -96,8 +96,8 @@ def cnt_entropy_file():
         
 
 
-button = Button(root,text ="Вычислить энтропию ИЗ ФАЙЛА", command = cnt_entropy_file)
-button.pack()
+button1 = Button(root,text ="Вычислить энтропию ИЗ ФАЙЛА", command = cnt_entropy_file)
+button1.pack()
 
 t1=Label(root,text="ТУТ БУДЕТ ЭНТРОПИЯ ИЗ ФАЙЛА")
 t1.pack()
