@@ -5,6 +5,8 @@ from tkinter import *
 import time
 import pyperclip
 from tkinter import ttk
+import tkinter.messagebox as mb
+
 
 root = Tk()
 root.resizable(False, False)
@@ -67,26 +69,32 @@ def cnt_entropy_file():
 
         filename=entry.get()
 
-        with open(filename,encoding='utf-8') as file:    #открываем через менеджер контекста, filename определим позже
 
-            text = file.read()  #считываем содержимое только для UTF-8 кодировки
-            H,num_words,time_of_method=cnt_entropy_from_str(text)
-        global Hf
-        Hf=H
-        global Wf
-        Wf=num_words
-        global Tf
-        Tf=time_of_method
-        t1.config(text="H="+str(H)+" Words="+str(num_words))
-        print(str(H))
 
-        t2.config(text=str(time_of_method))
+        with open(filename,encoding="utf-8") as file:    #открываем через менеджер контекста
 
+                text = file.read()  #считываем содержимое только для UTF-8 кодировки
+                H,num_words,time_of_method=cnt_entropy_from_str(text)
+                global Hf
+                Hf=H
+                global Wf
+                Wf=num_words
+                global Tf
+                Tf=time_of_method
+                t1.config(text="H="+str(H)+" Words="+str(num_words))
+                print(str(H))
+
+                t2.config(text=str(time_of_method))
+    except IOError:
+            
+            mb.showwarning(title="Ошибка", message="Нет такого файла")
+      
+
+    except UnicodeDecodeError:
+
+            mb.showwarning(title="Ошибка", message="Поменяйте кодировку на UTF-8")
         
 
-    except IOError:
-
-        t1.config(text="Нет такого файла")
 
 button = Button(root,text ="Вычислить энтропию ИЗ ФАЙЛА", command = cnt_entropy_file)
 button.pack()
